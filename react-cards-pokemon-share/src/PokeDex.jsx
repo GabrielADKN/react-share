@@ -5,12 +5,13 @@ import PokemonSelect from "./PokemonSelect.jsx";
 import PokemonCard from "./PokemonCard.jsx";
 import "./PokeDex.css";
 import useAxios from "./hooks/useAxios.jsx";
+import useSateHooks from "./hooks/useStateHooks.jsx";
 
 /* Renders a list of pokemon cards.
  * Can also add a new card at random,
  * or from a dropdown of available pokemon. */
 function PokeDex() {
-  const [pokemon, setPokemon] = useState([]);
+  const [pokemon, setPokemon, reset] = useSateHooks([]);
   const { fetchData, error, loading } = useAxios("https://pokeapi.co/api/v2/pokemon/");
   if (error) {
     return <h3>ERROR: {error.message}</h3>;
@@ -25,7 +26,7 @@ function PokeDex() {
     <div className="PokeDex">
       <div className="PokeDex-buttons">
         <h3>Please select your pokemon:</h3>
-        <PokemonSelect add={addPokemon} />
+        <PokemonSelect add={addPokemon} reset={reset}/>
       </div>
       <div className="PokeDex-card-area">
         {pokemon.map(cardData => (

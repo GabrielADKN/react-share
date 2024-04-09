@@ -4,11 +4,12 @@ import axios from "axios";
 import PlayingCard from "./PlayingCard.jsx";
 import "./PlayingCardList.css";
 import useAxios from "./hooks/useAxios.jsx";
+import useSateHooks from "./hooks/useStateHooks.jsx";
 
 /* Renders a list of playing cards.
  * Can also add a new card at random. */
 function CardTable() {
-  const [cards, setCards] = useState([]);
+  const [cards, setCards, reset] = useSateHooks([]);
   const { fetchData, error, loading } = useAxios("https://deckofcardsapi.com/api/deck/new/draw/");
   if (error) {
     return <h3>ERROR: {error.message}</h3>;
@@ -24,6 +25,7 @@ function CardTable() {
       <h3>Pick a card, any card!</h3>
       <div>
         <button onClick={addCard}>Add a playing card!</button>
+        <button onClick={reset}>Reset</button>
       </div>
       <div className="PlayingCardList-card-area">
         {cards.map(cardData => (
