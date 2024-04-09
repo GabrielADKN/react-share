@@ -11,7 +11,10 @@ import useAxios from "./hooks/useAxios.jsx";
  * or from a dropdown of available pokemon. */
 function PokeDex() {
   const [pokemon, setPokemon] = useState([]);
-  const { fetchData } = useAxios("https://pokeapi.co/api/v2/pokemon/");
+  const { fetchData, error, loading } = useAxios("https://pokeapi.co/api/v2/pokemon/");
+  if (error) {
+    return <h3>ERROR: {error.message}</h3>;
+  }
   const addPokemon = async (name) => {
     const pokemonData = await fetchData(name);
     if (pokemonData) {

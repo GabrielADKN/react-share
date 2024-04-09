@@ -9,7 +9,10 @@ import useAxios from "./hooks/useAxios.jsx";
  * Can also add a new card at random. */
 function CardTable() {
   const [cards, setCards] = useState([]);
-  const { fetchData } = useAxios("https://deckofcardsapi.com/api/deck/new/draw/");
+  const { fetchData, error, loading } = useAxios("https://deckofcardsapi.com/api/deck/new/draw/");
+  if (error) {
+    return <h3>ERROR: {error.message}</h3>;
+  }
   const addCard = async () => {
     const cardData = await fetchData('', data => ({ ...data, id: uuid() }));
     if (cardData) {

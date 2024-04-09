@@ -17,11 +17,11 @@ const useAxios = (baseURL) => {
                 data = processResponse(data);
             }
             setLoading(false);
-            return data; // Return the (possibly processed) data
+            return data;
         } catch (error) {
             setError(error);
             setLoading(false);
-            return null; // In case of error, return null (or you could throw an error)
+            return null;
         }
     };
 
